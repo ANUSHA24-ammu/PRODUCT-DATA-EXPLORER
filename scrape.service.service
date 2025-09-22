@@ -1,0 +1,19 @@
+import { Injectable, Logger } from '@nestjs/common';
+import { PlaywrightCrawler, Dataset } from 'crawlee';
+
+@Injectable()
+export class ScrapeService {
+  private readonly logger = new Logger(ScrapeService.name);
+
+  async scrapeNavigations() {
+    const crawler = new PlaywrightCrawler({
+      async requestHandler({ page, enqueueLinks }) {
+        // Scrape navigation headings from worldofbooks.com here, save to DB
+        // enqueueLinks to categories, etc.
+      },
+      maxConcurrency: 5,
+    });
+
+    await crawler.run(['https://www.worldofbooks.com/']);
+  }
+}
